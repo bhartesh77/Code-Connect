@@ -1,4 +1,4 @@
-## Code Connect - An online code collaborator
+# Code Connect - An online code collaborator
 
 #### Note: None of the deployments will work because Vercel does not support web sockets and Heroku has removed free dynos.
 
