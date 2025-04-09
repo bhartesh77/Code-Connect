@@ -1,13 +1,14 @@
 # Code Connect - An online code collaborator
 
-#### Note: None of the deployments will work because Vercel does not support web sockets and Heroku has removed free dynos.
+#### Access the application here -> [Code Connect](https://code-connect-gcgt.onrender.com/)
 
 ### Installation steps
 
 1. git clone https://github.com/bhartesh77/Code-Connect.git
 2. npm install
-3. npm run start
-4. now you can access Code Connect at http://localhost:5000
+3. npm run start:front
+4. npm run server:dev
+5. now you can access Code Connect at http://localhost:5001
 
 ### Demo
 
