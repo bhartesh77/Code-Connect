@@ -8,21 +8,26 @@ const ACTIONS = require('./src/Actions');
 const server = http.createServer(app);
 const io = new Server(server);
 
-app.use(express.static('build'));
-app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// Health check API
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'ok', message: 'Server is up and running!' });
 });
+
+// Serve static only in development
+if (process.env.NODE_ENV === 'development') {
+    app.use(express.static('build'));
+    app.use((req, res, next) => {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
+}
 
 const userSocketMap = {};
 function getAllConnectedClients(roomId) {
-    // Map
     return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
-        (socketId) => {
-            return {
-                socketId,
-                username: userSocketMap[socketId],
-            };
-        }
+        (socketId) => ({
+            socketId,
+            username: userSocketMap[socketId],
+        })
     );
 }
 
@@ -63,5 +68,5 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
